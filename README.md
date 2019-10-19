@@ -5,6 +5,7 @@ Create a "data" directory if not present.
 Run get_tweets.py
 - It will ask for a hashtag.
 - REQUIRED_TWEETS (default to 10 for now) amount of tweets will be fetched, cleaned and stored in following manner:
+```
    data
    └── tweets
        ├── metoo
@@ -29,3 +30,4 @@ Run get_tweets.py
            ├── 7
            ├── 8
            └── 9
+```
