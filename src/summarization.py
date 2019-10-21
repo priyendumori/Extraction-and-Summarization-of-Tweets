@@ -18,6 +18,7 @@ def get_sentences(tag):
         fd = open(file,"r")
         for line in fd:
             sentences.append(line)
+        fd.close()
     return sentences
 
 
