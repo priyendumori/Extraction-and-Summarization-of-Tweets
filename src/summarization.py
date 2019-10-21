@@ -59,15 +59,15 @@ def beam_search(model,candidate_set,vectors,theta,k,dm_avg):
         for sentence in candidate_set:
             for summary_set in lold:
                 if sentence[1] not in summary_set:
-                    summary_set = summary_set + [sentence[1]]
-                    test_data = word_tokenize('.'.join(summary_set).lower())
+                    summary_set_new = summary_set + [sentence[1]]
+                    test_data = word_tokenize('.'.join(summary_set_new).lower())
                     v1 = model.infer_vector(test_data)
                     error = (distance.euclidean(v1, dm_avg))**2
-                    if len(summary_set) < theta:
-                        lnew.append([error,summary_set])
+                    if len(summary_set_new) < theta:
+                        lnew.append([error,summary_set_new])
                         lnew = heapq.nsmallest(k,lnew)
-                    elif len(summary_set) == theta:
-                        lk.append([error,summary_set])
+                    elif len(summary_set_new) == theta:
+                        lk.append([error,summary_set_new])
                         lk = heapq.nsmallest(k,lk)
 
         lold = [row[1] for row in lnew]
