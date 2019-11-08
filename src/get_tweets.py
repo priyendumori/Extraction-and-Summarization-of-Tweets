@@ -91,7 +91,7 @@ csvfile= open('Slang_Dictionary.csv','r')
 reader = csv.reader(csvfile)
 for row in reader :
 	slang_dictionary[str(row[0])]= str(row[1])
-model= Doc2Vec.load("d2v.model")
+model= Doc2Vec.load("m")
 while(1):
 	print("Enter a hashtag without the hash: ")
 	input_hashtag = input()
