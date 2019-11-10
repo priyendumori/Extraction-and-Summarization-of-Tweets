@@ -7,7 +7,7 @@ from operator import add
 from scipy import spatial
 import glob
 import sys
-import numpy
+import numpy as np
 from scipy.spatial import distance
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
