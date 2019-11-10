@@ -15,9 +15,16 @@ import random
 import heapq
 from sklearn.metrics.pairwise import cosine_similarity
 from summarization import get_sentences, get_vectors, ranking, beam_search
+import nltk
+import pandas as pd
+import re
+import networkx as nx
+from nltk.corpus import stopwords
+from summarization_model2 import sentence_tokenize,remove_stopwords,text_processing, vector_representations,similarity_matrix,apply_pagerank,summary_extraction
+
 
 MAX_TWEETS = 200
-REQUIRED_TWEETS = 50
+REQUIRED_TWEETS = 100
 
 CONSUMER_TOKEN = "jHTLoXi1itNEIboVkkG5PlZlM"
 CONSUMER_SECRET = "P4GsPqM4ms9amDLdHC69aKXk1gom7NH17apofBCDbMmp2uBgZ5"
@@ -28,6 +35,16 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 tweets_folder = "../data/tweets/"
+
+word_embeddings = {}
+f = open('glove.6B.100d.txt', encoding='utf-8')
+for line in f:
+    values = line.split()
+    word = values[0]
+    coefs = np.asarray(values[1:], dtype='float32')
+    word_embeddings[word] = coefs
+f.close()
+stop_words = stopwords.words('english')
 
 
 def write_to_file(filename, tweet):
@@ -100,4 +117,14 @@ while(1):
 	sen_vectors = get_vectors(sentences,model)
 	candidate_set,dm_avg = ranking(sen_vectors,sentences)
 	summary = beam_search(model,candidate_set,sen_vectors,5,5,dm_avg)
+	print("model1")
 	print(summary)
+	print("________________________________________________________________ ")
+    	sentences = sentence_tokenize(sentences)
+	clean_sentences = text_processing(sentences)
+	sentence_vectors = vector_representations(clean_sentences)
+	sim_mat = similarity_matrix(sentence_vectors)
+	scores = apply_pagerank(sim_mat)
+	print("model2")
+	summary_extraction(scores,sentences,5)
+	
