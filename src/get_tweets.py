@@ -120,7 +120,7 @@ while(1):
 	print("model1")
 	print(summary)
 	print("________________________________________________________________ ")
-    	sentences = sentence_tokenize(sentences)
+	sentences = sentence_tokenize(sentences)
 	clean_sentences = text_processing(sentences)
 	sentence_vectors = vector_representations(clean_sentences)
 	sim_mat = similarity_matrix(sentence_vectors)
