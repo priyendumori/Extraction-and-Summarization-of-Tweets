@@ -74,4 +74,4 @@ def beam_search(model,candidate_set,vectors,theta,k,dm_avg):
         lold = [row[1] for row in lnew]
         lnew = []
 
-    return '.'.join(lk[0][1])
+    return '\n'.join(lk[0][1])
